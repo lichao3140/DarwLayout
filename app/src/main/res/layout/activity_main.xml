@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lichao.darwlayout.MainActivity">
+
+    <com.lichao.darwlayout.MyDrawLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--内容  区域-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/fake" />
+
+        <!--侧滑区域  LinearLayout    ColorDrawable -->
+        <com.lichao.darwlayout.MyDrawSlideBar
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:maxTranslationX="66dp"
+            android:background="@color/colorPrimaryDark" >
+
+            <TextView
+                style="@style/MenuText"
+                android:drawableLeft="@drawable/circle"
+                android:text="朋友圈" />
+
+            <TextView
+                style="@style/MenuText"
+                android:drawableLeft="@drawable/wallet"
+                android:text="钱包" />
+
+            <TextView
+                style="@style/MenuText"
+                android:drawableLeft="@drawable/coupon"
+                android:text="优惠券" />
+
+        </com.lichao.darwlayout.MyDrawSlideBar>
+
+    </com.lichao.darwlayout.MyDrawLayout>
+
+</RelativeLayout>
