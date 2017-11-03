@@ -1,9 +1,13 @@
 package com.lichao.darwlayout;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
@@ -18,6 +22,7 @@ public class MyDrawBgView extends View {
 
     private Paint paint;
     private Path path;
+    private BitmapDrawable drawable;
 
     public MyDrawBgView(Context context) {
         this(context, null);
@@ -36,7 +41,15 @@ public class MyDrawBgView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+//        super.onDraw(canvas);
+//        paint.setStyle(Paint.Style.FILL);
+//        canvas.drawPath(path,paint);
+        //完成图片的绘制
+        if (drawable != null) {
+            Bitmap bitmap=drawable.getBitmap();
+            Shader shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+            paint.setShader(shader);
+        }
         paint.setStyle(Paint.Style.FILL);
         canvas.drawPath(path,paint);
     }
@@ -69,6 +82,7 @@ public class MyDrawBgView extends View {
             paint.setColor(colorDrawable.getColor());
         }else {
             // 实现背景图片的变换
+            this.drawable= (BitmapDrawable) color;
         }
     }
 }

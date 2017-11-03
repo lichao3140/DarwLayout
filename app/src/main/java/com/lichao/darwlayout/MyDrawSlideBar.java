@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewParent;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 /**
@@ -50,31 +50,30 @@ public class MyDrawSlideBar extends LinearLayout {
                 //回调调用层
             }
             //偏移方法
-            apply(getParent(), child, y, slideOffset);
+            apply((ViewGroup)getParent(), child, y, slideOffset);
         }
     }
 
-    private void apply(ViewParent parent, View child, float y, float slideOffset) {
-        //偏移距离
-        float translationX = 0;
-        int centerY = child.getTop() + child.getHeight() / 2;
-        //控件中心点 距手指的距离
-        float distance = Math.abs(y - centerY);
-        float scale = distance / getHeight() * 3;//3   放大系数
-        translationX = maxTranslationX - scale * maxTranslationX;
-        Log.i("tuch","maxTranslationX  "+maxTranslationX+"   touchY  "+ y+"   slideOffset  "+ slideOffset + "   偏移量  " + translationX * slideOffset);
-        child.setTranslationX(translationX);
+    public void apply(ViewGroup MyDrawSlideBar, View itemView, float touchY, float slideOffset) {
+        float translationX=0;
+        int centerY = itemView.getTop() + itemView.getHeight() / 2;
+        float distance = Math.abs(touchY - centerY);
+        float scale = distance / MyDrawSlideBar.getHeight()*3 ; // 距离中心点距离与 MyDrawSlideBar 的 1/3 对比
+        translationX =   maxTranslationX - scale * maxTranslationX ;
+        Log.i("tuch","maxTranslationX  "+maxTranslationX+"   touchY  "+ touchY+"   slideOffset  "+ slideOffset + "   偏移量  " + translationX * slideOffset);
+        itemView.setTranslationX(translationX * slideOffset);
     }
 
     /**
      * 手指 弹起来
      */
-    public void onMotionUp() {
+    public void onMotionEventUp() {
         for (int i =0; opened && i < getChildCount(); i++) {
             View view = getChildAt(i);
             if (view.isPressed()) {
                 view.performClick();
                 //回调操作
+                return;
             }
         }
     }

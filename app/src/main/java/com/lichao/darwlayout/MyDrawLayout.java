@@ -56,7 +56,7 @@ public class MyDrawLayout extends DrawerLayout implements DrawerLayout.DrawerLis
         y = ev.getY();
         if (ev.getAction() == MotionEvent.ACTION_UP) {
             closeDrawers();
-            myDrawSlideBar.onMotionUp();
+            myDrawBgRealativeLayout.onMotionEventUp();
             return super.dispatchTouchEvent(ev);
         }
 
@@ -67,7 +67,7 @@ public class MyDrawLayout extends DrawerLayout implements DrawerLayout.DrawerLis
             //等于  1
             myDrawBgRealativeLayout.setTouchY(y,slideOffset);
         }
-        return super.dispatchTouchEvent(ev);
+        return true;
     }
 
     /**

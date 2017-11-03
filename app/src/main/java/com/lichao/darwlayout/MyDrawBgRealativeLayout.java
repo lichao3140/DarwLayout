@@ -1,6 +1,7 @@
 package com.lichao.darwlayout;
 
 import android.graphics.Color;
+import android.support.v4.widget.DrawerLayout;
 import android.widget.RelativeLayout;
 
 /**
@@ -18,9 +19,12 @@ public class MyDrawBgRealativeLayout extends RelativeLayout {
     }
 
     private void init(MyDrawSlideBar myDrawSlideBar) {
-        this.myDrawSlideBar = myDrawSlideBar;
         //把sliderBay的   宽高转移到外面MyDrawBgRealativeLayout
         setLayoutParams(myDrawSlideBar.getLayoutParams());
+        int parentLayoutGravity = ((DrawerLayout.LayoutParams) getLayoutParams()).gravity;
+
+        this.myDrawSlideBar = myDrawSlideBar;
+
         //背景先添加进去
         myDrawBgView = new MyDrawBgView(getContext());
         addView(myDrawBgView, 0, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
@@ -38,5 +42,9 @@ public class MyDrawBgRealativeLayout extends RelativeLayout {
     public void setTouchY(float y, float slideOffset) {
         myDrawBgView.setTouchY(y,slideOffset);
         myDrawSlideBar.setTouchY(y, slideOffset);
+    }
+
+    public void onMotionEventUp() {
+        myDrawSlideBar.onMotionEventUp();
     }
 }
